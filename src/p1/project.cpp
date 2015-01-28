@@ -27,6 +27,15 @@ OpenglProject::OpenglProject()
     // Warning: Although members' constructors are automatically called,
     // ints, floats, pointers, and classes with empty contructors all
     // will have uninitialized data!
+
+    // Initialize heightmap
+    HEIGHTMAP_SIZE = 192;
+    HEIGHTMAP_SPAN = (2.0 / (HEIGHTMAP_SIZE - 1));
+
+    heightmapMesh.num_vertices = HEIGHTMAP_SIZE * HEIGHTMAP_SIZE;
+    heightmapMesh.vertices = new Vector3 [heightmapMesh.num_vertices];
+    heightmapMesh.num_triangles = (HEIGHTMAP_SPAN - 1) * (HEIGHTMAP_SPAN - 1) * 2;
+    heightmapMesh.triangles = new Vector3 [heightmapMesh.num_triangles];
 }
 
 // destructor, invoked when object is destroyed

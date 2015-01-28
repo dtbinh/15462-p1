@@ -52,7 +52,7 @@ struct MeshData
     Vector3* normals;
 };
 
-struct HeightmapData
+struct HeightmapMeshData
 {
     // array of vertices
     Vector3* vertices;
@@ -136,6 +136,9 @@ private:
 
     // TODO add any other private members/functions here.
     int HEIGHTMAP_SIZE;
+    int HEIGHTMAP_SPAN;
+
+    HeightmapMeshData heightmapMesh;
 
     // since this has no meaningful or usefule assignment/copy, prevent the
     // compiler from automatically generating those functions
