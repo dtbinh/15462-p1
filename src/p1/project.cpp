@@ -34,8 +34,9 @@ OpenglProject::OpenglProject()
 
     heightmapMesh.num_vertices = HEIGHTMAP_SIZE * HEIGHTMAP_SIZE;
     heightmapMesh.vertices = new Vector3 [heightmapMesh.num_vertices];
-    heightmapMesh.num_triangles = (HEIGHTMAP_SPAN - 1) * (HEIGHTMAP_SPAN - 1) * 2;
-    heightmapMesh.triangles = new Vector3 [heightmapMesh.num_triangles];
+    heightmapMesh.num_triangles = (HEIGHTMAP_SIZE - 1) * (HEIGHTMAP_SIZE - 1) * 2;
+    heightmapMesh.triangles = new Triangle [heightmapMesh.num_triangles];
+
 }
 
 // destructor, invoked when object is destroyed
@@ -82,6 +83,9 @@ bool OpenglProject::initialize( Camera* camera, Scene* scene )
       (this->scene).mesh.normals[i] = normalize( (this->scene).mesh.normals[i] );
     }
 
+
+    initHeightmap();
+
     // Let there be light
     GLfloat ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f};
     GLfloat diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f};
@@ -113,13 +117,15 @@ bool OpenglProject::initialize( Camera* camera, Scene* scene )
 
     // Compute the heightmap
     glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
+    //glEnableClientState(GL_NORMAL_ARRAY);
 
     glColor3f(0.75f, 0.75f, 0.75f);
 
     // specify where to get vertex data
-    glVertexPointer(3, GL_DOUBLE, 0, (this->scene).mesh.vertices);
-    glNormalPointer(GL_DOUBLE, 0, (this->scene).mesh.normals);
+    //glVertexPointer(3, GL_DOUBLE, 0, (this->scene).mesh.vertices);
+    //glNormalPointer(GL_DOUBLE, 0, (this->scene).mesh.normals);
+
+    glVertexPointer(3, GL_DOUBLE, 0, heightmapMesh.vertices);
 
     return true;
 }
@@ -130,6 +136,8 @@ bool OpenglProject::initialize( Camera* camera, Scene* scene )
 void OpenglProject::destroy()
 {
     // TODO any cleanup code, e.g., freeing memory
+    delete [] heightmapMesh.vertices;
+    delete [] heightmapMesh.triangles;
 }
 
 /**
@@ -154,8 +162,11 @@ void OpenglProject::render( const Camera* camera )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // TODO render code
-    glDrawElements(GL_TRIANGLES, 3*(this->scene).mesh.num_triangles, GL_UNSIGNED_INT,
-    (unsigned int *) &((this->scene).mesh.triangles[0]));
+    //glDrawElements(GL_TRIANGLES, 3*(this->scene).mesh.num_triangles, GL_UNSIGNED_INT,
+    //(unsigned int *) &((this->scene).mesh.triangles[0]));
+
+    glDrawElements(GL_TRIANGLES, 3*heightmapMesh.num_triangles, GL_UNSIGNED_INT,
+    (unsigned int *) &heightmapMesh.triangles[0]);
 
     glMatrixMode(GL_PROJECTION);
     // set current matrix
@@ -176,6 +187,41 @@ void OpenglProject::render( const Camera* camera )
     gluLookAt(eye[0], eye[1], eye[2],
               center[0], center[1], center[2],
               up[0], up[1], up[2]);
+}
+
+void OpenglProject::initHeightmap() {
+  double height;
+  double x = -1.0, y = -1.0;
+  int idx = 0;
+
+  for (int i=0; i < HEIGHTMAP_SIZE; i++) {
+    y = -1.0;
+    if (i == HEIGHTMAP_SIZE - 1)
+      x = 1.0;
+    for (int j=0; j < HEIGHTMAP_SIZE; j++) {
+      if (j == HEIGHTMAP_SIZE - 1)
+        y = 1.0;
+      height = scene.heightmap->compute_height(Vector2(x, y));
+      heightmapMesh.vertices[idx] = Vector3(x, height, y);
+      y += HEIGHTMAP_SPAN;
+      ++idx;
+    }
+    x += HEIGHTMAP_SPAN;
+  }
+
+  idx = 0;
+  for (int i=0; i < HEIGHTMAP_SIZE - 1; i++) {
+    for (int j=1; j < HEIGHTMAP_SIZE; j++) {
+      heightmapMesh.triangles[idx].vertices[0] = j + HEIGHTMAP_SIZE * i;
+      heightmapMesh.triangles[idx].vertices[1] = j - 1 + HEIGHTMAP_SIZE * i;
+      heightmapMesh.triangles[idx].vertices[2] = j + HEIGHTMAP_SIZE * (i+1);
+      ++idx;
+      heightmapMesh.triangles[idx].vertices[0] = j - 1 + HEIGHTMAP_SIZE * i;
+      heightmapMesh.triangles[idx].vertices[1] = j - 1 + HEIGHTMAP_SIZE * (i+1);
+      heightmapMesh.triangles[idx].vertices[2] = j + HEIGHTMAP_SIZE * (i+1);
+      ++idx;
+    }
+  }
 }
 
 } /* _462 */

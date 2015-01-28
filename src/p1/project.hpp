@@ -136,9 +136,11 @@ private:
 
     // TODO add any other private members/functions here.
     int HEIGHTMAP_SIZE;
-    int HEIGHTMAP_SPAN;
+    double HEIGHTMAP_SPAN;
 
     HeightmapMeshData heightmapMesh;
+
+    void initHeightmap();
 
     // since this has no meaningful or usefule assignment/copy, prevent the
     // compiler from automatically generating those functions
