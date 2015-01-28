@@ -1,0 +1,2 @@
+/usr/bin/ar cq libSDLMain.a  CMakeFiles/SDLMain.dir/SDLMain.m.o
+/usr/bin/ranlib libSDLMain.a
