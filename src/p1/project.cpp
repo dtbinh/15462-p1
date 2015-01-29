@@ -109,33 +109,23 @@ void OpenglProject::render( const Camera* camera )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // TODO render code
+    // Draw pool mesh
+    glPushMatrix();
+    transform (&(this->scene.mesh_position));
     glBindVertexArrayAPPLE(VAO[Mesh]);
     glDrawElements(GL_TRIANGLES, 3*(this->scene).mesh.num_triangles,
       GL_UNSIGNED_INT, 0);
+    glPopMatrix();
 
+    // Draw water
+    glPushMatrix();
+    transform (&(this->scene.heightmap_position));
     glBindVertexArrayAPPLE(VAO[Heightmap]);
     glDrawElements(GL_TRIANGLES, 3*heightmapMesh.num_triangles,
       GL_UNSIGNED_INT, 0);
+    glPopMatrix();
 
-    glMatrixMode(GL_PROJECTION);
-    // set current matrix
-    glLoadIdentity();
-    gluPerspective(camera->get_fov_degrees(),
-                   camera->get_aspect_ratio(),
-                   camera->get_near_clip(),
-                   camera->get_far_clip());
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    float eye[3], center[3], up[3];
-    camera->get_position().to_array(eye);
-    (camera->get_direction()-camera->get_position()).to_array(center);
-    camera->get_up().to_array(up);
-
-    gluLookAt(eye[0], eye[1], eye[2],
-              center[0], center[1], center[2],
-              up[0], up[1], up[2]);
+    setCamera (camera);
 }
 
 
@@ -254,4 +244,36 @@ void OpenglProject::computeNormals ( MeshData* mesh ) {
   }
 }
 
+void OpenglProject::setCamera ( const Camera* camera ) {
+  glMatrixMode(GL_PROJECTION);
+  // set current matrix
+  glLoadIdentity();
+  gluPerspective(camera->get_fov_degrees(),
+                 camera->get_aspect_ratio(),
+                 camera->get_near_clip(),
+                 camera->get_far_clip());
+
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  float eye[3], center[3], up[3];
+  camera->get_position().to_array(eye);
+  (camera->get_direction()-camera->get_position()).to_array(center);
+  camera->get_up().to_array(up);
+
+  gluLookAt(eye[0], eye[1], eye[2],
+            center[0], center[1], center[2],
+            up[0], up[1], up[2]);
+}
+
+void OpenglProject::transform ( PositionData* p ) {
+  glTranslatef( p->position[0],
+                p->position[1],
+                p->position[2]);
+  Vector3 v;
+  real_t a;
+  p->orientation.to_axis_angle(&v, &a);
+  glRotatef( a, v[0], v[1], v[2] );
+  glScalef( p->scale[0], p->scale[1], p->scale[2] );
+}
 } /* _462 */

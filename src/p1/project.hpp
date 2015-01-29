@@ -156,6 +156,8 @@ private:
     void initLight();
     void initHeightmap();
     void initMeshBuffers( MeshData* , unsigned int );
+    void setCamera ( const Camera* camera );
+    void transform ( PositionData* p );
 
     // since this has no meaningful or usefule assignment/copy, prevent the
     // compiler from automatically generating those functions
