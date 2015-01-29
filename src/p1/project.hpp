@@ -58,20 +58,6 @@ struct MeshData
     Vector3* normals;
 };
 
-struct HeightmapMeshData
-{
-    // array of vertices
-    Vector3* vertices;
-    // size of vertex array
-    size_t num_vertices;
-    // array of triangles
-    Triangle* triangles;
-    // size of triangle array
-    size_t num_triangles;
-    // array of normals
-    Vector3* normals;
-};
-
 class Heightmap
 {
 public:
@@ -163,11 +149,13 @@ private:
     int HEIGHTMAP_SIZE;
     double HEIGHTMAP_SPAN;
 
-    HeightmapMeshData heightmapMesh;
+    MeshData heightmapMesh;
 
+    // Helper functions
+    void computeNormals( MeshData* );
+    void initLight();
     void initHeightmap();
-
-    void initMeshBuffers();
+    void initMeshBuffers( MeshData* , unsigned int );
 
     // since this has no meaningful or usefule assignment/copy, prevent the
     // compiler from automatically generating those functions
