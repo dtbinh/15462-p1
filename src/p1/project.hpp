@@ -38,6 +38,12 @@ struct Triangle
     unsigned int vertices[3];
 };
 
+struct Buffers
+{
+  // buffers for VAOs
+  unsigned int buffers[3];
+};
+
 struct MeshData
 {
     // array of vertices
@@ -135,12 +141,33 @@ private:
     Scene scene;
 
     // TODO add any other private members/functions here.
+    // enums
+    enum VAONames {
+      Mesh,
+      Heightmap,
+      NumVAOs
+    };
+
+    enum VBONames {
+      Vertices,
+      Elements,
+      Normals,
+      NumVBOs
+    };
+
+    // VAOs
+    unsigned int VAO[NumVAOs];
+
+    Buffers VBO[NumVAOs];
+
     int HEIGHTMAP_SIZE;
     double HEIGHTMAP_SPAN;
 
     HeightmapMeshData heightmapMesh;
 
     void initHeightmap();
+
+    void initMeshBuffers();
 
     // since this has no meaningful or usefule assignment/copy, prevent the
     // compiler from automatically generating those functions

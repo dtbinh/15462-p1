@@ -5,7 +5,6 @@
  * @author H. Q. Bovik (hqbovik)
  * @bug Unimplemented
  */
-
 #include "p1/project.hpp"
 
 
@@ -36,7 +35,6 @@ OpenglProject::OpenglProject()
     heightmapMesh.vertices = new Vector3 [heightmapMesh.num_vertices];
     heightmapMesh.num_triangles = (HEIGHTMAP_SIZE - 1) * (HEIGHTMAP_SIZE - 1) * 2;
     heightmapMesh.triangles = new Triangle [heightmapMesh.num_triangles];
-
 }
 
 // destructor, invoked when object is destroyed
@@ -59,6 +57,9 @@ bool OpenglProject::initialize( Camera* camera, Scene* scene )
     this->scene = *scene;
 
     // TODO opengl initialization code and precomputation of mesh/heightmap
+
+    // Initialize VAO
+    glGenVertexArraysAPPLE(NumVAOs, VAO);
 
     // Compute the normals
     // first zero out
@@ -222,6 +223,31 @@ void OpenglProject::initHeightmap() {
       ++idx;
     }
   }
+}
+
+void OpenglProject::initMeshBuffers() {
+  // Should change this
+  glBindVertexArrayAPPLE (VAO[Mesh]);
+  glGenBuffers(NumVBOs, VBO[Mesh].buffers);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO[Mesh].buffers[Vertices]);
+  glBufferData(GL_ARRAY_BUFFER,
+    3 * sizeof(GL_DOUBLE) * (this->scene).mesh.num_vertices,
+    (this->scene).mesh.vertices, GL_STATIC_DRAW);
+  glVertexPointer(3, GL_DOUBLE, 0, 0);
+  glEnableClientState(GL_VERTEX_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBO[Mesh].buffers[Normals]);
+  glBufferData(GL_ARRAY_BUFFER,
+    3 * sizeof(GL_DOUBLE) * (this->scene).mesh.num_vertices,
+    (this->scene).mesh.normals, GL_STATIC_DRAW);
+  glVertexPointer(3, GL_DOUBLE, 0, 0);
+  glEnableClientState(GL_NORMAL_ARRAY);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,
+    VBO[Mesh].buffers[Elements]);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+    3 * sizeof(GL_UNSIGNED_INT) * (this->scene).mesh.num_triangles,
+    (unsigned int *) &((this->scene).mesh.triangles[0]), GL_STATIC_DRAW);
 }
 
 } /* _462 */
