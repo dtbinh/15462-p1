@@ -28,7 +28,7 @@ OpenglProject::OpenglProject()
     // will have uninitialized data!
 
     // Initialize heightmap
-    HEIGHTMAP_SIZE = 192;
+    HEIGHTMAP_SIZE = 128;
     HEIGHTMAP_SPAN = (2.0 / (HEIGHTMAP_SIZE - 1));
 
     heightmapMesh.num_vertices = HEIGHTMAP_SIZE * HEIGHTMAP_SIZE;
@@ -97,6 +97,35 @@ void OpenglProject::update( real_t dt )
     scene.heightmap->update( dt );
 
     // TODO any update code, e.g. commputing heightmap mesh positions and normals
+    // bind then map the VBO
+    computeHeight();
+    computeNormals (&heightmapMesh);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[Heightmap].buffers[Vertices]);
+
+    double* p = (double*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+    // if the pointer is valid(mapped), update VBO
+    if(p) {
+        // modify buffer data
+        for (int i=0; i < heightmapMesh.num_vertices; i++)
+          for (int j=0; j < 3; j++) {
+            *(p + (j + i * 3)) = heightmapMesh.vertices[i][j];
+          }
+        glUnmapBuffer(GL_ARRAY_BUFFER); // unmap it after use
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[Heightmap].buffers[Normals]);
+
+    p = (double*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+    // if the pointer is valid(mapped), update VBO
+    if(p) {
+        // modify buffer data
+        for (int i=0; i < heightmapMesh.num_vertices; i++)
+          for (int j=0; j < 3; j++) {
+            *(p + (j + i * 3)) = heightmapMesh.normals[i][j];
+          }
+        glUnmapBuffer(GL_ARRAY_BUFFER); // unmap it after use
+    }
 }
 
 /**
@@ -111,6 +140,14 @@ void OpenglProject::render( const Camera* camera )
     // TODO render code
     // Draw pool mesh
     glPushMatrix();
+    glColor3f(0.65f, 0.15f, 0.15f);
+
+    // set material
+    GLfloat specref1[] = { 0.05f, 0.05f, 0.05f, 0.5f };
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specref1);
+    glMateriali(GL_FRONT, GL_SHININESS, 23);
+
     transform (&(this->scene.mesh_position));
     glBindVertexArrayAPPLE(VAO[Mesh]);
     glDrawElements(GL_TRIANGLES, 3*(this->scene).mesh.num_triangles,
@@ -119,6 +156,14 @@ void OpenglProject::render( const Camera* camera )
 
     // Draw water
     glPushMatrix();
+    glColor4f( 0.15f, 0.35f, 0.85f, 0.2f);
+
+    // set material
+    GLfloat specref2[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specref2);
+    glMateriali(GL_FRONT, GL_SHININESS, 128);
+
     transform (&(this->scene.heightmap_position));
     glBindVertexArrayAPPLE(VAO[Heightmap]);
     glDrawElements(GL_TRIANGLES, 3*heightmapMesh.num_triangles,
@@ -128,9 +173,7 @@ void OpenglProject::render( const Camera* camera )
     setCamera (camera);
 }
 
-
-
-void OpenglProject::initHeightmap() {
+void OpenglProject::computeHeight() {
   double height;
   double x = -1.0, y = -1.0;
   int idx = 0;
@@ -149,8 +192,12 @@ void OpenglProject::initHeightmap() {
     }
     x += HEIGHTMAP_SPAN;
   }
+}
 
-  idx = 0;
+
+void OpenglProject::initHeightmap() {
+  computeHeight();
+  int idx = 0;
   for (int i=0; i < HEIGHTMAP_SIZE - 1; i++) {
     for (int j=0; j < HEIGHTMAP_SIZE - 1; j++) {
       heightmapMesh.triangles[idx].vertices[0] = j + HEIGHTMAP_SIZE * i;
