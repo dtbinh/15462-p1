@@ -57,6 +57,8 @@ bool OpenglApplication::initialize()
 {
     bool rv = true;
 
+    glewInit();
+
     // set camera paremeters
     // aspect ratio is set by the application, so we can ignore it
     Camera* camera = &camera_control.camera;

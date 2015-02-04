@@ -59,9 +59,6 @@ bool OpenglProject::initialize( Camera* camera, Scene* scene )
 
     // TODO opengl initialization code and precomputation of mesh/heightmap
 
-    // Initialize VAO
-    glGenVertexArraysAPPLE(NumVAOs, VAO);
-
     // Compute the normals
     initHeightmap();
 
@@ -107,7 +104,7 @@ void OpenglProject::update( real_t dt )
     // if the pointer is valid(mapped), update VBO
     if(p) {
         // modify buffer data
-        for (int i=0; i < heightmapMesh.num_vertices; i++)
+        for (unsigned int i=0; i < heightmapMesh.num_vertices; i++)
           for (int j=0; j < 3; j++) {
             *(p + (j + i * 3)) = heightmapMesh.vertices[i][j];
           }
@@ -120,7 +117,7 @@ void OpenglProject::update( real_t dt )
     // if the pointer is valid(mapped), update VBO
     if(p) {
         // modify buffer data
-        for (int i=0; i < heightmapMesh.num_vertices; i++)
+        for (unsigned int i=0; i < heightmapMesh.num_vertices; i++)
           for (int j=0; j < 3; j++) {
             *(p + (j + i * 3)) = heightmapMesh.normals[i][j];
           }
@@ -149,7 +146,13 @@ void OpenglProject::render( const Camera* camera )
     glMateriali(GL_FRONT, GL_SHININESS, 23);
 
     transform (&(this->scene.mesh_position));
-    glBindVertexArrayAPPLE(VAO[Mesh]);
+
+    // bind buffers
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[Mesh].buffers[Vertices]);
+    glVertexPointer(3, GL_DOUBLE, 0, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[Mesh].buffers[Normals]);
+    glNormalPointer(GL_DOUBLE, 0, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[Mesh].buffers[Elements]);
     glDrawElements(GL_TRIANGLES, 3*(this->scene).mesh.num_triangles,
       GL_UNSIGNED_INT, 0);
     glPopMatrix();
@@ -165,7 +168,13 @@ void OpenglProject::render( const Camera* camera )
     glMateriali(GL_FRONT, GL_SHININESS, 128);
 
     transform (&(this->scene.heightmap_position));
-    glBindVertexArrayAPPLE(VAO[Heightmap]);
+
+    // bind buffers
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[Heightmap].buffers[Vertices]);
+    glVertexPointer(3, GL_DOUBLE, 0, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[Heightmap].buffers[Normals]);
+    glNormalPointer(GL_DOUBLE, 0, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[Heightmap].buffers[Elements]);
     glDrawElements(GL_TRIANGLES, 3*heightmapMesh.num_triangles,
       GL_UNSIGNED_INT, 0);
     glPopMatrix();
@@ -244,21 +253,17 @@ void OpenglProject::initLight () {
 }
 
 void OpenglProject::initMeshBuffers ( MeshData* mesh, unsigned int MeshIndex ) {
-  // Should change this
-  glBindVertexArrayAPPLE (VAO[MeshIndex]);
-  glGenBuffers(NumVBOs, VBO[MeshIndex].buffers);
+  glGenBuffers(NumMeshes, VBO[MeshIndex].buffers);
   glBindBuffer(GL_ARRAY_BUFFER, VBO[MeshIndex].buffers[Vertices]);
   glBufferData(GL_ARRAY_BUFFER,
     3 * sizeof(double) * mesh->num_vertices,
     mesh->vertices, GL_STATIC_DRAW);
-  glVertexPointer(3, GL_DOUBLE, 0, 0);
   glEnableClientState(GL_VERTEX_ARRAY);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBO[MeshIndex].buffers[Normals]);
   glBufferData(GL_ARRAY_BUFFER,
     3 * sizeof(double) * mesh->num_vertices,
     mesh->normals, GL_STATIC_DRAW);
-  glNormalPointer(GL_DOUBLE, 0, 0);
   glEnableClientState(GL_NORMAL_ARRAY);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,

@@ -16,6 +16,7 @@
 #include "math/quaternion.hpp"
 #include "math/color.hpp"
 
+#include "glew/GL/glew.h"
 /*
    A namespace declaration. All project files use this namespace.
    Add this declaration (and its closing) to all source/headers you create.
@@ -128,10 +129,10 @@ private:
 
     // TODO add any other private members/functions here.
     // enums
-    enum VAONames {
+    enum MeshNames {
       Mesh,
       Heightmap,
-      NumVAOs
+      NumMeshes
     };
 
     enum VBONames {
@@ -141,10 +142,7 @@ private:
       NumVBOs
     };
 
-    // VAOs
-    unsigned int VAO[NumVAOs];
-
-    Buffers VBO[NumVAOs];
+    Buffers VBO[NumMeshes];
 
     int HEIGHTMAP_SIZE;
     double HEIGHTMAP_SPAN;
