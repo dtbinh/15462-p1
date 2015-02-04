@@ -224,10 +224,9 @@ void OpenglProject::initHeightmap() {
 
 void OpenglProject::initLight () {
   // Let there be light
-  GLfloat ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f};
+  GLfloat ambientLight[] = { 0.1f, 0.1f, 0.1f, 1.0f};
   GLfloat diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f};
   GLfloat specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-  GLfloat specref[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CCW);
@@ -241,11 +240,6 @@ void OpenglProject::initLight () {
   glEnable(GL_LIGHT0);
 
   glEnable(GL_COLOR_MATERIAL);
-
-  glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-
-  glMaterialfv(GL_FRONT, GL_SPECULAR, specref);
-  glMateriali(GL_FRONT, GL_SHININESS, 128);
 
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -311,7 +305,7 @@ void OpenglProject::setCamera ( const Camera* camera ) {
   glLoadIdentity();
   float eye[3], center[3], up[3];
   camera->get_position().to_array(eye);
-  (camera->get_direction()-camera->get_position()).to_array(center);
+  (camera->get_position() + camera->get_direction()).to_array(center);
   camera->get_up().to_array(up);
 
   gluLookAt(eye[0], eye[1], eye[2],

@@ -163,25 +163,6 @@ void OpenglApplication::handle_event( const SDL_Event& event )
         {
           case KEY_SCREENSHOT:
             take_screenshot();
-            break;
-          case KEY_TRANSLEFT:
-            camera_control.camera.translate(Vector3(-1.0, 0, 0));
-            break;
-          case KEY_TRANSRIGHT:
-            camera_control.camera.translate(Vector3(1.0, 0, 0));
-            break;
-          case KEY_TRANSDOWN:
-            camera_control.camera.translate(Vector3(0, -1.0, 0));
-            break;
-          case KEY_TRANSUP:
-            camera_control.camera.translate(Vector3(0, 1.0, 0));
-            break;
-          case KEY_TRANSNEAR:
-            camera_control.camera.translate(Vector3(0, 0, -1.0));
-            break;
-          case KEY_TRANSFAR:
-            camera_control.camera.translate(Vector3(0, 0, 1.0));
-            break;
           default:
             break;
         }
