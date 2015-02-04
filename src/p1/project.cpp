@@ -70,6 +70,7 @@ bool OpenglProject::initialize( Camera* camera, Scene* scene )
     initMeshBuffers(&(this->scene.mesh), Mesh);
     initMeshBuffers(&heightmapMesh, Heightmap);
 
+    setCamera(camera);
     return true;
 }
 
@@ -297,6 +298,7 @@ void OpenglProject::computeNormals ( MeshData* mesh ) {
 }
 
 void OpenglProject::setCamera ( const Camera* camera ) {
+  // init camera
   glMatrixMode(GL_PROJECTION);
   // set current matrix
   glLoadIdentity();
@@ -307,7 +309,6 @@ void OpenglProject::setCamera ( const Camera* camera ) {
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-
   float eye[3], center[3], up[3];
   camera->get_position().to_array(eye);
   (camera->get_direction()-camera->get_position()).to_array(center);

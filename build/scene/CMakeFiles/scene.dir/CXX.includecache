@@ -6,35 +6,49 @@
 
 #IncludeRegexTransform: 
 
-/Users/zhubofei/15-462/p1/src/math/camera.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/glew/GL/glew.h
+stddef.h
+-
+inttypes.h
+-
+stdint.h
+-
+inttypes.h
+-
+OpenGL/glu.h
+-
+GL/glu.h
+-
+
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/camera.hpp
 math/vector.hpp
-/Users/zhubofei/15-462/p1/src/math/math/vector.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/math/vector.hpp
 math/quaternion.hpp
-/Users/zhubofei/15-462/p1/src/math/math/quaternion.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/math/quaternion.hpp
 
-/Users/zhubofei/15-462/p1/src/math/color.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/color.hpp
 math/math.hpp
-/Users/zhubofei/15-462/p1/src/math/math/math.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/math/math.hpp
 iostream
 -
 cassert
 -
 
-/Users/zhubofei/15-462/p1/src/math/math.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/math.hpp
 algorithm
 -
 cmath
 -
 
-/Users/zhubofei/15-462/p1/src/math/quaternion.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/quaternion.hpp
 math/math.hpp
-/Users/zhubofei/15-462/p1/src/math/math/math.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/math/math.hpp
 math/vector.hpp
-/Users/zhubofei/15-462/p1/src/math/math/vector.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/math/vector.hpp
 
-/Users/zhubofei/15-462/p1/src/math/vector.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/vector.hpp
 math/math.hpp
-/Users/zhubofei/15-462/p1/src/math/math/math.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/math/math/math.hpp
 algorithm
 -
 cassert
@@ -44,33 +58,35 @@ cmath
 iostream
 -
 
-/Users/zhubofei/15-462/p1/src/p1/project.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/p1/project.hpp
 vector
 -
 math/camera.hpp
-/Users/zhubofei/15-462/p1/src/p1/math/camera.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/p1/math/camera.hpp
 math/vector.hpp
-/Users/zhubofei/15-462/p1/src/p1/math/vector.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/p1/math/vector.hpp
 math/quaternion.hpp
-/Users/zhubofei/15-462/p1/src/p1/math/quaternion.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/p1/math/quaternion.hpp
 math/color.hpp
-/Users/zhubofei/15-462/p1/src/p1/math/color.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/p1/math/color.hpp
+glew/GL/glew.h
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/p1/glew/GL/glew.h
 
-/Users/zhubofei/15-462/p1/src/scene/heightmap.cpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/heightmap.cpp
 scene/heightmap.hpp
-/Users/zhubofei/15-462/p1/src/scene/scene/heightmap.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/scene/heightmap.hpp
 
-/Users/zhubofei/15-462/p1/src/scene/heightmap.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/heightmap.hpp
 math/vector.hpp
-/Users/zhubofei/15-462/p1/src/scene/math/vector.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/math/vector.hpp
 p1/project.hpp
-/Users/zhubofei/15-462/p1/src/scene/p1/project.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/p1/project.hpp
 vector
 -
 
-/Users/zhubofei/15-462/p1/src/scene/mesh.cpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/mesh.cpp
 scene/mesh.hpp
-/Users/zhubofei/15-462/p1/src/scene/scene/mesh.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/scene/mesh.hpp
 iostream
 -
 cstring
@@ -84,9 +100,9 @@ sstream
 map
 -
 
-/Users/zhubofei/15-462/p1/src/scene/mesh.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/mesh.hpp
 math/vector.hpp
-/Users/zhubofei/15-462/p1/src/scene/math/vector.hpp
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/scene/math/vector.hpp
 vector
 -
 cassert

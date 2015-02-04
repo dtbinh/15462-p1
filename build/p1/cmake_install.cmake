@@ -1,47 +1,52 @@
-# Install script for directory: /Users/zhubofei/15-462/p1/src/p1
+# Install script for directory: /afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/p1
 
 # Set the install prefix
-if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
-endif()
-string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
+  SET(CMAKE_INSTALL_PREFIX "/usr/local")
+ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
+STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
 # Set the install configuration name.
-if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
-  if(BUILD_TYPE)
-    string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
+IF(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+  IF(BUILD_TYPE)
+    STRING(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
-  else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
-  endif()
-  message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
-endif()
+  ELSE(BUILD_TYPE)
+    SET(CMAKE_INSTALL_CONFIG_NAME "")
+  ENDIF(BUILD_TYPE)
+  MESSAGE(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
+ENDIF(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
 
 # Set the component getting installed.
-if(NOT CMAKE_INSTALL_COMPONENT)
-  if(COMPONENT)
-    message(STATUS "Install component: \"${COMPONENT}\"")
-    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
-  else()
-    set(CMAKE_INSTALL_COMPONENT)
-  endif()
-endif()
+IF(NOT CMAKE_INSTALL_COMPONENT)
+  IF(COMPONENT)
+    MESSAGE(STATUS "Install component: \"${COMPONENT}\"")
+    SET(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
+  ELSE(COMPONENT)
+    SET(CMAKE_INSTALL_COMPONENT)
+  ENDIF(COMPONENT)
+ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/Users/zhubofei/15-462/p1/src/../p1")
-  if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
-    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
-  endif()
-  if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
-  endif()
-file(INSTALL DESTINATION "/Users/zhubofei/15-462/p1/src/.." TYPE EXECUTABLE FILES "/Users/zhubofei/15-462/p1/build/p1/p1")
-  if(EXISTS "$ENV{DESTDIR}/Users/zhubofei/15-462/p1/src/../p1" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/Users/zhubofei/15-462/p1/src/../p1")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/Users/zhubofei/15-462/p1/src/../p1")
-    endif()
-  endif()
-endif()
+# Install shared libraries without execute permission?
+IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  SET(CMAKE_INSTALL_SO_NO_EXE "0")
+ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  IF(EXISTS "$ENV{DESTDIR}/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/../p1" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/../p1")
+    FILE(RPATH_CHECK
+         FILE "$ENV{DESTDIR}/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/../p1"
+         RPATH "")
+  ENDIF()
+  list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
+   "/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/../p1")
+FILE(INSTALL DESTINATION "/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/.." TYPE EXECUTABLE FILES "/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/build/p1/p1")
+  IF(EXISTS "$ENV{DESTDIR}/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/../p1" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/../p1")
+    IF(CMAKE_INSTALL_DO_STRIP)
+      EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/src/../p1")
+    ENDIF(CMAKE_INSTALL_DO_STRIP)
+  ENDIF()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

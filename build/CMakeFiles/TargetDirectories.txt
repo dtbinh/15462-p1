@@ -1,5 +1,5 @@
-/Users/zhubofei/15-462/p1/build/p1/CMakeFiles/p1.dir
-/Users/zhubofei/15-462/p1/build/application/CMakeFiles/application.dir
-/Users/zhubofei/15-462/p1/build/SDLMain/CMakeFiles/SDLMain.dir
-/Users/zhubofei/15-462/p1/build/math/CMakeFiles/math.dir
-/Users/zhubofei/15-462/p1/build/scene/CMakeFiles/scene.dir
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/build/application/CMakeFiles/application.dir
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/build/glew/CMakeFiles/glew.dir
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/build/math/CMakeFiles/math.dir
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/build/p1/CMakeFiles/p1.dir
+/afs/andrew.cmu.edu/usr22/bofeiz/private/15462/15462-p1/build/scene/CMakeFiles/scene.dir
